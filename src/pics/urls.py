@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns=[
     path('', views.pictures_index, name='pictures_index'),
@@ -9,3 +11,6 @@ urlpatterns=[
     path('<category>/', views.pictures_category, name="pictures_category"),
     path('<location>/', views.pictures_location, name="pictures_location"),
 ]
+
+if settings.DEBUG:
+    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
