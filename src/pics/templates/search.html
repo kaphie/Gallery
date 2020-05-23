@@ -1,42 +1,25 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+{% extends "base.html" %}
+{% load static %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-lg">
-    <div class="container">
-        <a href="{% url 'pictures_index' %}" class="navbar-brand text-capitalize font-weight-bolder" >Gallery</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarToggle">
+{% block content %}
+<div class="container">
 
-          <div class="navbar-nav ml-auto">
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View by Location.</a>
-              <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown">
-                {% for location in location %}
-                  <a class="dropdown-item" href="{% url 'pictures_location' location.location %}">{{location.location}}</a>
-                {% endfor %}
-              </div>
-            </li>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <form class="form-inline" action="{% url 'search_results' %}">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search by Category" name="search_item">
-                <div class="input-group-btn">
-                </div>
-              </div>
-            </form>
-
-          </div>
+  <div class="row mt-5">
+    {% if searched_pictures%}
+      <h2>Found {{ searched_pictures|length }} of searched term- <span class="text_primary">{{message}}</span></h2>
+    {% else %}
+      <h2> Found 0 pictures for the search term- <span class="text-primary">{{message}}</span>.</h2>
+    {% endif %}
+  </div>
+  <hr class="bg-primary">
+  {% if searched_pictures %}
+  <div class="row mt-5">
+    {% for picture in searched_pictures %}
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-2 mb-3 ">
+            <a href="{% url 'pictures_detail' picture.pk %}"><img src="{{picture.image.url}}" class="img-responsive img-thumbnail shadow-lg" alt="Image"></a>
         </div>
-    </div>
-  </nav>
-
-
-  <div class="container-fluid ">
-    {% block content %}{% endblock %}
+    {% endfor %}
+  </div>
+  {% endif %}
 </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+{% endblock %}
