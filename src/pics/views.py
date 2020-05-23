@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from pics.models import Pictures
+from django.http  import HttpResponse
 
 # Create your views here.
-def pictures_index(request):
-    
+def pictures(request):
+    return render(request, 'pictures.html')
