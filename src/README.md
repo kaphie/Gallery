@@ -7,7 +7,7 @@
 PicsGarage is a personal gallery django application that allows users display their photos for others to see.
 
 ## Screenshots
-<img src='https://github.com/kaphie/Gallery/blob/master/media/screencapture-127-0-0-1-8000-2020-05-26-19_57_23.pdf'>
+<img src="">
 
 ## Technologies Used
 * Django
